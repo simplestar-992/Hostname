@@ -1,0 +1,20 @@
+#!/bin/bash
+# Hostname - Pretty hostname information
+# Show and manage hostname with network info
+
+set -e
+
+show_info() {
+    echo "🏠 Hostname Information"
+    echo "======================="
+    echo ""
+    echo "Hostname: $(hostname)"
+    echo "FQDN: $(hostname -f 2>/dev/null || hostname)"
+    echo "Domain: $(hostname -d 2>/dev/null || 'none')"
+    echo ""
+    echo "Network:"
+    hostname -I | awk '{print "  IP: " $0}'
+    echo "  MAC: $(cat /sys/class/net/*/address 2>/dev/null | head -1)"
+}
+show_info
+EOF
